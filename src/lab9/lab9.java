@@ -1,8 +1,6 @@
 package lab9;
 
 import java.util.*;
-import java.util.ArrayList;
-
 
 public class lab9 {
 	private static Scanner scnr = new Scanner(System.in);                                                                                                                                 
@@ -10,6 +8,7 @@ public class lab9 {
 	public static void main(String[] args) {
 		
 		String item = "";
+		double price = 0;
 		
 		//use a Map to track String: item name, Double: item price
 		//use parallel ArrayLists (one of strings, one of doubles) to store the items ordered and their prices
@@ -17,12 +16,16 @@ public class lab9 {
 		System.out.println("Welcome to the supermarket\n" + supermarket);
 		System.out.println("What item would you like to order?");
 		item = scnr.nextLine();
-//			if (supermarket.get(item) != null) { //or does equal key in Map
-//				//store Key and Value in separate arrays - item array and price array
-//				itemArray.
-//			}
-//		//validate user input in try catch and repeat question if necessary
-//	}
+		price = supermarket.get(item);
+		System.out.println("Adding " + item + " to cart for " + price);
+
+		addToItemArray(item);
+		addToPriceArray(price);
+		
+		System.out.println(itemArray);
+		System.out.println(priceArray);
+
+
 
 		
 	}
@@ -44,7 +47,7 @@ public class lab9 {
 		supermarket.put("salsa", 3.29);
 		supermarket.put("limes", 3.00);
 	
-		System.out.println(supermarket);
+		//System.out.println(supermarket);
 	
 	}
 	
@@ -53,14 +56,17 @@ public class lab9 {
 	static ArrayList<Double> priceArray = new ArrayList<Double>(12);
 
 	
-	public static void add() {
-		
+	public static void addToItemArray(String item) {
+		if  (supermarket.containsKey(item)) {
+		} itemArray.add(item);
 	}
 		
-	
-	public static void storeUserInput()	{
-		//store user input (item and price) in parallel arrays (static arrays?)
 		
+	
+	public static void addToPriceArray(double price)	{
+		if (supermarket.containsValue(price)) {
+			priceArray.add(price);
+		}
 	}
 	
 	
