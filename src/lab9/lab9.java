@@ -9,30 +9,34 @@ public class lab9 {
 
 		String item = "";
 		double price = 0;
-		boolean flag = true;
+		boolean validItem = false;
 
-		// use a Map to track String: item name, Double: item price
-		// use parallel ArrayLists (one of strings, one of doubles) to store the items
-		// ordered and their prices
-		while (flag) {
-			System.out.println("Welcome to the supermarket!\n" + supermarket);
+		//welcome message
+		System.out.println("Welcome to the supermarket!\n" + supermarket);
+
+		// use a Map to track String: item name and Double: item price
+		// use parallel ArrayLists (one for strings, one for doubles) to store the items
+		
+		//write overall loop
+		
+		while (!validItem) { //validation loop
 			System.out.println("What item would you like to add to your cart?");
 			item = scnr.nextLine();
-			price = supermarket.get(item);
-			System.out.println("Adding " + item + " to cart for " + price);
+				
+			try {
+				addToArray(item);
+				validItem = true;
+			} catch (IllegalArgumentException e) {
+				validItem = false;
+				System.out.println("That is not a valid item. Please select an item from the list.");
+			}
 
-			addToItemArray(item);
-			addToPriceArray(price);
-
-			System.out.println(itemArray);
-			System.out.println(priceArray);
+			//ystem.out.println(itemArray);
+			//System.out.println(priceArray);
 
 		}
 
 	}
-
-	// method 0: display list of 8 items w/ names and prices. ask user to enter an
-	// item name
 
 	static Map<String, Double> supermarket = new HashMap<>();
 	static {
@@ -56,22 +60,21 @@ public class lab9 {
 	static ArrayList<String> itemArray = new ArrayList<String>(12);
 	static ArrayList<Double> priceArray = new ArrayList<Double>(12);
 
-	public static void addToItemArray(String item) {
+	public static void addToArray(String item) {
 		boolean flag = true;
-
+		
 		if (supermarket.containsKey(item)) {
 			itemArray.add(item);
+			double price = supermarket.get(item);
+			priceArray.add(price);
+			System.out.println("Adding " + item + " to cart for " + price);
 		} else {
 			flag = false;
+			throw new IllegalArgumentException("item outside of list.");
 		}
 
 	}
 
-	public static void addToPriceArray(double price) {
-		if (supermarket.containsValue(price)) {
-			priceArray.add(price);
-		}
-	}
 
 	// method 1: find average cost of items ordered
 	// method 2: find index of highest cost item
