@@ -4,40 +4,54 @@ import java.util.*;
 
 public class lab9 {
 	private static Scanner scnr = new Scanner(System.in);
-
+	
 	public static void main(String[] args) {
 
 		String item = "";
 		double price = 0;
+		String userChoice = "";
+		boolean addToCart = true;
 		boolean validItem = false;
 
-		//welcome message
+		// welcome message
 		System.out.println("Welcome to the supermarket!\n" + supermarket);
 
 		// use a Map to track String: item name and Double: item price
 		// use parallel ArrayLists (one for strings, one for doubles) to store the items
-		
-		//write overall loop
-		
-		while (!validItem) { //validation loop
-			System.out.println("What item would you like to add to your cart?");
-			item = scnr.nextLine();
+
+		do {
+
+			do  { // validation loop
+				System.out.println("What item would you like to add to your cart?");
+				item = scnr.nextLine();
+
+				try {
+					addToArray(item);
+					//validItem = true;
+				} catch (IllegalArgumentException e) {
+					validItem = true;
+					System.out.println("That is not a valid item. Please select an item from the list.");
+
+				}
+
 				
-			try {
-				addToArray(item);
-				validItem = true;
-			} catch (IllegalArgumentException e) {
-				validItem = false;
-				System.out.println("That is not a valid item. Please select an item from the list.");
-			}
 
-			//ystem.out.println(itemArray);
-			//System.out.println(priceArray);
+			} while (validItem);
 
-		}
-
+			System.out.println("Would you like to add anything else to your cart? (yes/no)");
+			userChoice = scnr.nextLine();
+			
+		} while (userChoice.equals("yes"));
+		
+		System.out.println(itemArray);
+		System.out.println(priceArray);
+		
+		
 	}
 
+	static ArrayList<String> itemArray = new ArrayList<String>(12);
+	static ArrayList<Double> priceArray = new ArrayList<Double>(12);
+	
 	static Map<String, Double> supermarket = new HashMap<>();
 	static {
 		supermarket.put("black beans", 1.29);
@@ -53,16 +67,11 @@ public class lab9 {
 		supermarket.put("salsa", 3.29);
 		supermarket.put("limes", 3.00);
 
-		// System.out.println(supermarket);
-
 	}
-
-	static ArrayList<String> itemArray = new ArrayList<String>(12);
-	static ArrayList<Double> priceArray = new ArrayList<Double>(12);
 
 	public static void addToArray(String item) {
 		boolean flag = true;
-		
+
 		if (supermarket.containsKey(item)) {
 			itemArray.add(item);
 			double price = supermarket.get(item);
@@ -74,7 +83,6 @@ public class lab9 {
 		}
 
 	}
-
 
 	// method 1: find average cost of items ordered
 	// method 2: find index of highest cost item
